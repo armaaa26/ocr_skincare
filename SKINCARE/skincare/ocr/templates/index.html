@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Skincare</title>
+</head>
+<body>
+    <h1>Identifikasi Kandungan Bahan Skincare</h1>
+
+    <!-- Form Upload Gambar -->
+    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" accept="image/*" required onchange="this.form.submit()">
+    </form>
+
+    <br>
+    <a href="{% url 'scan' %}">
+        <button>Scan Foto</button>
+    </a>
+</body>
+</html>
