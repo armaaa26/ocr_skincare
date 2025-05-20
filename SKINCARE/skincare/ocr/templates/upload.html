@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Preview</title>
+</head>
+<body>
+    <h1>Pratinjau Gambar</h1>
+    <img src="{{ image_url }}" alt="Uploaded Image" width="300">
+    
+    <form action="{% url 'process_image' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="image_path" value="{{ image_path }}">
+        <button type="submit">Proses Gambar</button>
+    </form>    
+
+    <br>
+    <a href="{% url 'home' %}">Kembali</a>
+</body>
+</html>
