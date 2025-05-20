@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hasil OCR</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url("{% static 'img/2.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: brightness(0.85);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2c3e50;
+            padding: 30px 40px;
+            border-radius: 15px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2575fc;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            color: #6a11cb;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #2575fc;
+            padding-bottom: 5px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li strong {
+            color: #2575fc;
+        }
+
+        .image-preview {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        a.button-back {
+            display: inline-block;
+            margin-top: 30px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        a.button-back:hover {
+            box-shadow: 0 6px 15px rgba(37, 117, 252, 0.6);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hasil OCR</h1>
+
+        {% if image_url %}
+        <div class="image-preview">
+            <img src="{{ image_url }}" alt="Gambar yang diupload" />
+        </div>
+        {% endif %}
+
+        {% if text %}
+            <h2>Teks yang Terdeteksi:</h2>
+            <p>{{ text }}</p>
+
+            {% if ingredients %}
+                <h2>Manfaat :</h2>
+                <ul>
+                    {% for ingredient, benefit in ingredients.items %}
+                        <li><strong>{{ ingredient }}</strong>: {{ benefit }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Tidak ada bahan skincare yang ditemukan dalam database.</p>
+            {% endif %}
+        {% else %}
+            <p>Tidak ada teks yang terdeteksi.</p>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="button-back">Kembali ke Beranda</a>
+    </div>
+</body>
+</html>
