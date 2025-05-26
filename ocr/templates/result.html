@@ -49,15 +49,36 @@
         p {
             font-size: 1.1rem;
             line-height: 1.5;
+            margin: 0 0 10px 0;
         }
 
         ul {
             list-style-type: disc;
             margin-left: 20px;
+            padding-left: 15px;
         }
 
-        li strong {
+        li {
+            margin-bottom: 20px;
+        }
+
+        li strong.ingredient-name {
+            font-size: 1.2rem;
             color: #2575fc;
+        }
+
+        li p.benefit-text {
+            color: #2d3436;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        strong.label-efek {
+            color: #2d3436; 
+        }
+
+        strong.label-peringatan {
+            color: #e74c3c; 
         }
 
         .image-preview {
@@ -112,10 +133,15 @@
             <p>{{ text }}</p>
 
             {% if ingredients %}
-                <h2>Manfaat :</h2>
+                <h2>Informasi Bahan:</h2>
                 <ul>
-                    {% for ingredient, benefit in ingredients.items %}
-                        <li><strong>{{ ingredient }}</strong>: {{ benefit }}</li>
+                    {% for ingredient, info in ingredients.items %}
+                        <li>
+                            <strong class="ingredient-name">{{ ingredient }}</strong><br>
+                            <p class="benefit-text">{{ info.benefit }}</p>
+                            <strong class="label-efek">Efek Samping:</strong> {{ info.side_effects }}<br>
+                            <strong class="label-peringatan">Peringatan:</strong> {{ info.warning }}
+                        </li>
                     {% endfor %}
                 </ul>
             {% else %}

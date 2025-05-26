@@ -54,14 +54,28 @@ def process_image(request):
         default_storage.delete(image_path)
 
         # Pencocokan bahan dengan database
-        detected_ingredients = text.lower().split()
-        db_ingredients = {ing.name.lower(): ing.benefit for ing in SkincareIngredient.objects.all()}
+        detected_words = text.lower().split()
+        db_ingredients = SkincareIngredient.objects.all()
 
-        for word in detected_ingredients:
-            match = get_close_matches(word, db_ingredients.keys(), n=1, cutoff=0.7)
+        for word in detected_words:
+            # Cari nama bahan paling mendekati dengan cutoff 0.7
+            match = get_close_matches(word, [ing.name.lower() for ing in db_ingredients], n=1, cutoff=0.7)
             if match:
-                ingredients[match[0]] = db_ingredients[match[0]]
+                try:
+                    ing = SkincareIngredient.objects.get(name__iexact=match[0])
+                    ingredients[ing.name] = {
+                        'benefit': ing.benefit,
+                        'side_effect': ing.side_effect,
+                        'warning': ing.warning
+                    }
+                except SkincareIngredient.DoesNotExist:
+                    ingredients[match[0]] = {
+                        'benefit': 'Tidak ditemukan di database.',
+                        'side_effect': '-',
+                        'warning': '-'
+                    }
 
         return render(request, 'result.html', {'text': text, 'ingredients': ingredients})
 
     return redirect('home')
+
