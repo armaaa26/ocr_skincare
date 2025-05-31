@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Beauty Detect</title>
     
-    <!-- Google Fonts: Poppins & Playfair Display -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-    
-    <!-- FontAwesome untuk icon -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-image: url("{% static 'img/2.jpg' %}");
+            background-image: url("{% static 'img/3.jpg' %}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -25,7 +26,6 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             position: relative;
         }
@@ -38,50 +38,51 @@
             z-index: -1;
             backdrop-filter: blur(2px);
         }
-        
-        h1 {
+
+        .intro {
+            margin-top: 60px;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .intro h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 5em;
-            letter-spacing: 4px;
+            font-size: 4em;
+            letter-spacing: 2px;
             background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-align: center;
             text-shadow: 1px 1px 0 rgba(255,255,255,0.2);
-            margin-bottom: 10px;
-            line-height: 1.2;
         }
-        
-        .tagline {
-            font-size: 1.1rem;
+
+        .intro p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
             font-style: italic;
-            color: rgba(255, 255, 255, 0.85);
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 400;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+            margin-top: 10px;
         }
-        
+
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 32px 28px;
+            padding: 24px 20px;
             border-radius: 16px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 90%;
-            max-width: 420px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            width: 80%;
+            max-width: 320px;
+            margin-top: 40px;
         }
-        
+
         input[type="file"] {
             display: none;
         }
-        
-        .custom-file-upload {
+
+        .custom-file-upload, button {
             background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
             color: white;
             padding: 14px 24px;
@@ -94,65 +95,40 @@
             gap: 8px;
             box-shadow: 0 5px 12px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
-        }
-        
-        .custom-file-upload:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(38, 57, 77, 0.25);
-        }
-        
-        button {
-            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
             border: none;
-            padding: 14px 30px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
+            margin-top: 10px;
+
+            /* ✅ Tambahan untuk responsif */
+            box-sizing: border-box;
+            max-width: 100%;
         }
-        
-        button:hover {
+
+        .custom-file-upload:hover, button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(38, 57, 77, 0.25);
         }
-        
-        a {
-            text-decoration: none;
-        }
-        
+
         @media (max-width: 600px) {
-            h1 {
-                font-size: 2.4em;
+            .intro h1 {
+                font-size: 2.5em;
             }
-            
-            .tagline {
+            .intro p {
                 font-size: 1rem;
             }
-            
-            .container {
-                padding: 20px;
-            }
-            
             .custom-file-upload, button {
                 width: 100%;
-                padding: 16px 0;
-                font-size: 1.2rem;
                 justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Beauty Detect App</h1>
-    <p class="tagline">"Kenali Kandungan, Rawat Kulitmu."</p>
+    <div class="intro">
+        <h1>Selamat Datang di Beauty Detect</h1>
+        <p>Beauty Detect adalah aplikasi cerdas yang membantu kamu mengenali kandungan bahan dalam produk skincare hanya dengan mengunggah foto kemasannya. Temukan manfaat dari setiap bahan dan rawat kulitmu dengan produk yang tepat.</p>
+    </div>
 
     <div class="container">
-        <!-- Form Upload Gambar -->
         <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="image" class="custom-file-upload">
@@ -161,7 +137,6 @@
             <input type="file" id="image" name="image" accept="image/*" required onchange="this.form.submit()" />
         </form>
 
-        <!-- Tombol Scan Gambar -->
         <a href="{% url 'scan' %}">
             <button>
                 <i class="fas fa-magnifying-glass"></i> Scan Gambar
