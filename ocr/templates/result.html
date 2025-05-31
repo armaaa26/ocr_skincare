@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-image: url("{% static 'img/2.jpg' %}");
+            background-image: url("{% static 'img/3.jpg' %}");
             background-size: cover;
             background-position: center;
             margin: 0;
@@ -74,7 +74,7 @@
         }
 
         strong.label-efek {
-            color: #2d3436; 
+            color: #2d3436;  
         }
 
         strong.label-peringatan {
@@ -139,8 +139,14 @@
                         <li>
                             <strong class="ingredient-name">{{ ingredient }}</strong><br>
                             <p class="benefit-text">{{ info.benefit }}</p>
-                            <strong class="label-efek">Efek Samping:</strong> {{ info.side_effects }}<br>
-                            <strong class="label-peringatan">Peringatan:</strong> {{ info.warning }}
+                            
+                            {% if info.side_effect %}
+                                <strong class="label-efek">Efek Samping:</strong> {{ info.side_effect }}<br>
+                            {% endif %}
+                            
+                            {% if info.warning %}
+                                <strong class="label-peringatan">Peringatan:</strong> {{ info.warning }}
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>

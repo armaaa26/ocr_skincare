@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-image: url("{% static 'img/2.jpg' %}");
+            background-image: url("{% static 'img/3.jpg' %}");
             background-size: cover;
             background-position: center;
             margin: 0;
@@ -119,7 +119,7 @@
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            imageInput.value = canvas.toDataURL('image/jpeg');
+            imageInput.value = canvas.toDataURL('image/jpg');
             alert('Foto berhasil diambil, silakan tekan "Proses Gambar" untuk melanjutkan.');
         });
     </script>
